@@ -114,6 +114,9 @@ while run:
     
     # Display the score
     pygame.display.set_caption(f"snake | score : {score}")
+
+    # Copy direction to avoid going backward
+    new_direction = direction
     
     # Exit if the window is closed
     for event in pygame.event.get():
@@ -124,18 +127,21 @@ while run:
             # Change the direction of the snake according to the key pressed
             if event.type == pygame.KEYDOWN:
                 if event.key == K_UP and direction != "down":
-                    direction = "up"
+                    new_direction = "up"
                 if event.key == K_DOWN and direction != "up":
-                    direction = "down"
+                    new_direction = "down"
                 if event.key == K_LEFT and direction != "right":
-                    direction = "left"
+                    new_direction = "left"
                 if event.key == K_RIGHT and direction != "left":
-                    direction = "right"
+                    new_direction = "right"
         else :
             # Restart the game if the Enter key is pressed
             if event.type == pygame.KEYDOWN:
                 if event.key == K_RETURN:
                     restart = True
+
+    # Update direction with the (latest) new direction
+    direction = new_direction
     
     # When the game is active   
     if game_active: 
